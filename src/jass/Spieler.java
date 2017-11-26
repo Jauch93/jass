@@ -45,6 +45,64 @@ public class Spieler
 			anzahlKarten++;
 	}
 	
+	public void sortiereKarten()					//Karten auf Hand werden  nach Farbe sortiert, aber noch nicht nach Punkten
+	{
+		Karte[] tmp = new Karte[handKarten.length];
+		int k = 0;													//Nach Farben sortieren
+		for(int i = 0; i < handKarten.length; i++)
+		{
+			if(handKarten[i].getFarbe().equals("Eichle"))
+			{
+				tmp[k] = handKarten[i];
+				k++;
+			}
+		}
+		for(int i = 0; i < handKarten.length; i++)
+		{
+			if(handKarten[i].getFarbe().equals("Schilte"))
+			{
+				tmp[k] = handKarten[i];
+				k++;
+			}
+		}
+		for(int i = 0; i < handKarten.length; i++)
+		{
+			if(handKarten[i].getFarbe().equals("Rose"))
+			{
+				tmp[k] = handKarten[i];
+				k++;
+			}
+		}
+		for(int i = 0; i < handKarten.length; i++)
+		{
+			if(handKarten[i].getFarbe().equals("Schalle"))
+			{
+				tmp[k] = handKarten[i];
+				k++;
+			}
+		}
+		for(;;)						//Nach Wertigkeit sortieren
+		{
+			boolean everythingSorted = true;
+			for(int i = 0; i < tmp.length-1; i++)
+			{
+				if(tmp[i].getFarbe() == tmp[i+1].getFarbe())
+				{
+					if(tmp[i].getWertigkeit() > tmp[i+1].getWertigkeit())
+					{
+						Karte copy = tmp[i];
+						tmp[i] = tmp[i+1];
+						tmp[i+1] = copy;
+						everythingSorted = false;
+					}
+				}
+			}
+			if(everythingSorted)
+				break;
+		}
+		handKarten = tmp;		
+	}
+	
 	public Karte[] showCards()
 	{
 		for(int i = 0; i < anzahlKarten; i++)

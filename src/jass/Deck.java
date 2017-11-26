@@ -19,7 +19,7 @@ public class Deck
 			{
 				deck[cardsInDeck] = new Karte(defaultFarben[i], defaultNamen[j]);
 				deck[cardsInDeck].setPunkte(defaultPunkte[j]);
-				deck[cardsInDeck].setWertigkeit(defaultWertigkeit[i]);
+				deck[cardsInDeck].setWertigkeit(defaultWertigkeit[j]);
 				cardsInDeck++;
 			}
 		}

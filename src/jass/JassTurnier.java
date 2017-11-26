@@ -42,7 +42,9 @@ public class JassTurnier extends ASpiel
 	public void startMatch() throws Exception 
 	{
 		this.supplyADeck();
-		this.verteileKarten();		
+		this.verteileKarten();
+		for(int i = 0; i < this.getAnzahlSpieler(); i++)
+			spieler[i].sortiereKarten();
 		this.setTrumpf();
 		this.setKartenWerte();
 		for(int i = 0; i < rundenProMatch; i++)			//Soviele Runden pro match, wie Karten auf der Hand.
@@ -100,7 +102,7 @@ public class JassTurnier extends ASpiel
 					Karte[] karten = spieler[i].showCards();
 					for(int k = 0; k < karten.length; k++)
 					{						
-							if(karten[k].getName().equals("8"))			//8er Im Wert raufsetzen.?
+							if(karten[k].getName().equals("8"))			//8er Im Wert raufsetzen.
 							{
 								karten[k].setPunkte(8);
 							}
