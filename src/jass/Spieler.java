@@ -103,33 +103,53 @@ public class Spieler
 		handKarten = tmp;		
 	}
 	
-	public Karte[] showCards()
+	public Karte[] getKarten()
+	{
+		return handKarten;
+	}
+	
+	public void printCards()
 	{
 		for(int i = 0; i < anzahlKarten; i++)
 			System.out.println(i + " - " + handKarten[i].toString());
-		return handKarten;
 	}
 
 	public Karte playCard() throws Exception
 	{
-		this.showCards();
+		this.printCards();
 		System.out.print(name + ", Wähle eine Karte: ");
-		java.io.BufferedReader cin;
-		cin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
-		int k = Integer.parseInt(cin.readLine());
 		Karte ret = null;
-			if(k >= anzahlKarten)
-				throw new IndexOutOfBoundsException();
+		int k = 0;
+		for(;;)
+		{
+			try
+			{
+				java.io.BufferedReader cin;
+				cin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
+				k = Integer.parseInt(cin.readLine());
+				if(k >= anzahlKarten)
+					throw new IndexOutOfBoundsException();
+				//if()
+				break;
+				
+			}
+			catch(IndexOutOfBoundsException e)
+			{
+				System.out.println("Ungültige Eingabe");
+			}
+		}
 			ret = handKarten[k];
 			for(int i = k; i < anzahlKarten-1; i++)
 				handKarten[i] = handKarten[i+1];
+
+			
 		anzahlKarten--;
 		return ret;
 	}
 
 	public String setTrumpf() throws IOException {
 		System.out.println(this.getName() + " wähle einen Trumpf: [Eichle, Schilte, Rose, Schalle, UnneUfe, ObeAbe]");
-		this.showCards();
+		this.printCards();
 		java.io.BufferedReader cin;
 		cin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
 		String trumpf = cin.readLine();

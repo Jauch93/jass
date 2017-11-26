@@ -8,7 +8,7 @@ public abstract class ASpiel
 	public abstract void supplyADeck();						//Abstrakt, denn je nach SpielArt wird ein anderes Deck benötigt.
 	public abstract void startTurnier() throws Exception;
 	public abstract void startMatch() throws Exception;
-	public abstract void startRunde() throws Exception;	
+	public abstract void startRunde(int roundNumber) throws Exception;	
 	
 	
 	
@@ -20,6 +20,13 @@ public abstract class ASpiel
 			String name = ("Spieler " + i);							//SpielerName hier anwählen, mit cin noch ergänzen!
 			spieler[i] = new Spieler(name, handKarten);
 		}
+	}
+	
+	public void printPunkte()
+	{
+		for(int i = 0; i < getAnzahlSpieler(); i++)
+			System.out.print(spieler[i].getName() + " " + spieler[i].getPunkte() + " -- ");
+		System.out.println();
 	}
 	
 	public void verteileKarten()							//*Verteilt Alle Karten unter den Spielern
