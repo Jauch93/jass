@@ -17,7 +17,7 @@ public class JassTurnier extends ASpiel
 		spieler = new JassSpieler[anzahlSpieler];
 		for(int i = 0; i < anzahlSpieler; i++)
 		{
-			String name = ("Spieler " + i);							//SpielerName hier anwählen, mit cin noch ergänzen!
+			String name = ("Spieler " + (i+1));							//SpielerName hier anwählen, mit cin noch ergänzen!
 			spieler[i] = new JassSpieler(name, handKarten);
 		}
 	}
@@ -30,7 +30,7 @@ public class JassTurnier extends ASpiel
 		spieler = new JassSpieler[anzahlSpieler];
 		for(int i = 0; i < anzahlSpieler; i++)
 		{
-			String name = ("Spieler " + i);							//SpielerName hier anwählen, mit cin noch ergänzen!
+			String name = ("Spieler " + (i+1));							//SpielerName hier anwählen, mit cin noch ergänzen!
 			spieler[i] = new JassSpieler(name, handKarten);
 		}
 	}
@@ -38,6 +38,13 @@ public class JassTurnier extends ASpiel
 	public static String[] getTrumpfArten()
 	{
 		return trumpfArten;
+	}
+	
+	public static void printTrumpfArten()
+	{
+		for(int i = 0; i < trumpfArten.length; i++)
+			System.out.print(trumpfArten[i] + " - ");
+		System.out.println();
 	}
 
 	public void supplyADeck() 

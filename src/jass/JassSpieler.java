@@ -10,7 +10,8 @@ public class JassSpieler extends ASpieler
 	}
 	
 	public int setTrumpf() throws IOException {
-		System.out.println(this.getName() + " wähle einen Trumpf: [Eichle, Schilte, Rose, Schalle, UnneUfe, ObeAbe]");
+		System.out.println(this.getName() + " wähle einen Trumpf: ");
+		JassTurnier.printTrumpfArten();
 		this.printCards();
 		String trumpfEingabe = null;
 		int trumpf = 0;
@@ -36,8 +37,7 @@ public class JassSpieler extends ASpieler
 			else
 			{
 				System.out.println("Diese TrumpfArt gibt es nicht. Versuche es mit:");
-				for(int i = 0; i < trumpfArten.length; i++)
-					System.out.print(trumpfArten[i] + " - ");
+				JassTurnier.printTrumpfArten();
 			}
 		}
 		return trumpf;
