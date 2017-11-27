@@ -2,39 +2,45 @@ package jass;
 
 public class Team 
 {
-	private JassSpieler[] teamMitglieder;
-	private int teamPunkte;
+	private TeamSpieler[] mitglieder;
+	private int n = 0; //wieviele Mitglieder sind im team? nur wichtig zum initialisieren.
+	private int maxMitglieder;
+	private int teamPunkte = 0;
 	private String name;
 
-	Team(String n, JassSpieler[] mitglieder)
+	Team(int maxMitglieder, String name)
 	{
-		name = n;
-		teamMitglieder = new JassSpieler[mitglieder.length];
-		for(int i = 0; i < mitglieder.length; i++)
-			teamMitglieder[i] = mitglieder[i];
-		System.out.print(getName() + " beinhaltet ");
-		for(int i = 0; i < mitglieder.length; i++)
-			System.out.print(teamMitglieder[i].getName() + ", ");
-		System.out.println();
+		this.maxMitglieder = maxMitglieder;
+		mitglieder = new TeamSpieler[maxMitglieder];
+		this.name = name;
 	}
 	
-	public void calcTeamPunkte()
+	public void addSpieler(TeamSpieler spieler)
 	{
-		teamPunkte = 0;
-		for(int i = 0; i < teamMitglieder.length; i++)
+		if(n < this.maxMitglieder)
 		{
-			teamPunkte += teamMitglieder[i].getPunkte();
+			mitglieder[n] = spieler;
+			n++;
 		}
 	}
 	
-	public int getPunkte()
+	public TeamSpieler[] getMitglieder()
 	{
-		calcTeamPunkte();
-		return teamPunkte;
+		return mitglieder;
 	}
 	
 	public String getName()
 	{
 		return name;
+	}
+	
+	public void addPunkte(int p)
+	{
+		teamPunkte =+ p;
+	}
+	
+	public int getPunkte()
+	{
+		return teamPunkte;
 	}
 }

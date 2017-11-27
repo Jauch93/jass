@@ -2,17 +2,20 @@ package jass;
 
 public abstract class ASpiel 
 {
+	
+//-----------------------------------------------------------------Attribute
 	protected Deck deck;
 	protected Spieler spieler[];
 	
+//-----------------------------------------------------------------Abstrakte Methoden
+	
 	public abstract void supplyADeck();						//Abstrakt, denn je nach SpielArt wird ein anderes Deck benötigt.
-	public abstract void startTurnier() throws Exception;
-	public abstract void startMatch() throws Exception;
-	public abstract void startRunde(int roundNumber) throws Exception;	
+	
+//-----------------------------------------------------------------Methoden
 	
 	ASpiel(int anzahlSpieler, int handKarten)
 	{
-		spieler = new Spieler[anzahlSpieler];
+		//spieler = new Spieler[anzahlSpieler];
 	}
 	
 	public abstract void printPunkte();

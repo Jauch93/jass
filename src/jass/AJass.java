@@ -18,6 +18,9 @@ public abstract class AJass extends ASpiel
 //-----------------------------------------------------------Abstrakte Methoden	
 	
 	public abstract void setTrumpf() throws IOException;
+	public abstract void startTurnier() throws Exception;
+	public abstract void startMatch() throws Exception;
+	public abstract void startRunde(int roundNumber) throws Exception;	
 	
 //-----------------------------------------------------------Methoden
 	
@@ -54,7 +57,7 @@ public abstract class AJass extends ASpiel
 		}
 	}
 	
-	public void startMatch() throws Exception 
+	public void startAbstractMatch() throws Exception 
 	{
 		this.supplyADeck();
 		this.verteileKarten();
@@ -142,8 +145,9 @@ public abstract class AJass extends ASpiel
 			
 		}
 		if(roundNumber == rundenProMatch-1)				//BonusPunkte für letzte Runde
-			rundenPunkte += 5;
-		spieler[rundenGewinner].addPunkte(rundenPunkte);
+		{
+			rundenPunkte += (5 * trumpfWerte[trumpf]);
+		}
 		offset = rundenGewinner;
 		return rundenPunkte;
 	}

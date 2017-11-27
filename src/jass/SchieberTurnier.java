@@ -2,64 +2,45 @@ package jass;
 
 import java.io.IOException;
 
-public class SchieberTurnier extends JassTurnier
+public class SchieberTurnier extends AJass
 {
-	private Team[] team;
+	private Team[] team = new Team[2]; // zwei Teams initialisieren
 	
 	SchieberTurnier()
 	{
-		super();
-		team = new Team[super.getAnzahlSpieler()/2];
-		for(int i = 0; i < super.getAnzahlSpieler()/2; i++)
+		super(4, 9, true, 2000);
+		int anzahlSpieler = 4;
+		int handKarten = 9;
+		for(int i = 0; i < team.length; i++)
+			team[i] = new Team(2, ("Team " + (i+1)));
+		for(int i = 0; i < anzahlSpieler; i++)
 		{
-			JassSpieler[] mitglieder = new JassSpieler[super.getAnzahlSpieler()/2];
-			mitglieder[0] = (JassSpieler) spieler[i];
-			mitglieder[1] = (JassSpieler) spieler[i+2];
-			
-			team[i] = new Team(("Team " + (i+1)), mitglieder);
+			String name = ("Spieler " + (i+1));
+			int teamNr = i%2;
+			spieler[i] = new TeamSpieler(name, handKarten, teamNr);
+			team[teamNr].addSpieler(((TeamSpieler)spieler[i]));
 		}
 	}
-	
-	public void startTurnier() throws Exception
+
+	public void startTurnier() throws Exception 
 	{
-		this.resetTurnier();
-		for(;;)
-		{
-			this.startMatch();
-			
-			if(this.getLeaderTeam().getPunkte() > maxPunkte)
-				break;
-		}
+		startAbstractTurnier();
 		System.out.println(this.getLeaderTeam().getName() + " hat das Turnier gewonnen!");
 	}
-	
+
+	public void startMatch() throws Exception 
+	{
+		startAbstractMatch();	
+	}
+
 	public void startRunde(int roundNumber) throws Exception 
 	{
 		int rundenPunkte = startAbstractRunde(roundNumber);
-		System.out.println(spieler[offset].getName() + " hat die Runde gewonnen. + " + rundenPunkte +  " Punkte.");		
+		Team winnerTeam = team[((TeamSpieler)spieler[offset]).getTeamNr()];
+		System.out.println(winnerTeam.getName() + " hat die Runde gewonnen.  + " + rundenPunkte + " Punkte.");
+		winnerTeam.addPunkte(rundenPunkte);
 	}
-	
-	public void printPunkte()
-	{
-		for(int i = 0; i < team.length;i ++)
-		{
-			System.out.println(team[i].getName() + " hat " + team[i].getPunkte() + " Punkte.");
-		}
-	}
-	
-	public Team getLeaderTeam()
-	{
-		int maxPunkte = 0;
-		int GewinnerTeam = 0;
-		for(int i = 0; i < team.length; i++)
-		{
-			if(team[i].getPunkte() > maxPunkte)
-				GewinnerTeam = i;
-		}
-		return team[GewinnerTeam];
-	}
-	
-	@Override
+
 	public void setTrumpf() throws IOException 
 	{
 		int t = ((JassSpieler)spieler[offset]).setTrumpf(true, this.getTrumpfArten());
@@ -76,4 +57,20 @@ public class SchieberTurnier extends JassTurnier
 		SchieberTurnier test = new SchieberTurnier();
 		test.startTurnier();
 	}
+
+	public Team getLeaderTeam()
+	{
+		int punkte = 0;
+		int winner = 0;
+		for(int i = 0; i < team.length; i++)
+		{
+			if(team[i].getPunkte() > punkte)
+			{
+				punkte = team[i].getPunkte();
+				winner = i;
+			}
+		}
+		return team[winner];		
+	}
+
 }
