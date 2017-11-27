@@ -2,16 +2,19 @@ package jass;
 
 import java.io.IOException;
 
-public class JassSpieler extends ASpieler
+public class JassSpieler extends Spieler
 {
 	JassSpieler(String n, int maxKarten)
 	{
 		super(n,maxKarten);
 	}
 	
-	public int setTrumpf() throws IOException {
+	public int setTrumpf(boolean schiebenAllowed) throws IOException {
 		System.out.println(this.getName() + " wähle einen Trumpf: ");
 		JassTurnier.printTrumpfArten();
+		if(schiebenAllowed)
+			System.out.print("Schieben");
+		System.out.println();
 		this.printCards();
 		String trumpfEingabe = null;
 		int trumpf = 0;
@@ -31,6 +34,11 @@ public class JassSpieler extends ASpieler
 				}
 				if(validTrumpf)
 					break;
+			}
+			if(schiebenAllowed && trumpfEingabe.equals("Schieben"))
+			{
+				trumpf = -1;
+				validTrumpf = true;
 			}
 			if(validTrumpf)
 				break;

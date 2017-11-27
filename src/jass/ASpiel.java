@@ -3,7 +3,7 @@ package jass;
 public abstract class ASpiel 
 {
 	protected Deck deck;
-	protected ASpieler spieler[];
+	protected Spieler spieler[];
 	
 	public abstract void supplyADeck();						//Abstrakt, denn je nach SpielArt wird ein anderes Deck benötigt.
 	public abstract void startTurnier() throws Exception;
@@ -15,12 +15,7 @@ public abstract class ASpiel
 		
 	}
 	
-	public void printPunkte()
-	{
-		for(int i = 0; i < getAnzahlSpieler(); i++)
-			System.out.print(spieler[i].getName() + " " + spieler[i].getPunkte() + " -- ");
-		System.out.println();
-	}
+	public abstract void printPunkte();
 	
 	public void verteileKarten()							//*Verteilt Alle Karten unter den Spielern
 	{
@@ -51,7 +46,7 @@ public abstract class ASpiel
 		}
 	}
 	
-	public ASpieler getLeader()							//*Gibt den Spieler mit den meisten Punkte zurück.
+	public Spieler getLeader()							//*Gibt den Spieler mit den meisten Punkte zurück.
 	{
 		int punkte = 0;
 		int winner = 0;

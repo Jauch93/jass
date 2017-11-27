@@ -4,9 +4,9 @@ import java.io.IOException;
 
 public class JassTurnier extends ASpiel
 {
-	private int trumpf;
-	private int maxPunkte = 2000;
-	private int offset = 0; //Gibt an, welcher Spieler als nächstes beginnen muss.
+	protected int trumpf;
+	protected int maxPunkte = 2000;
+	protected int offset = 0; //Gibt an, welcher Spieler als nächstes beginnen muss.
 	private int rundenProMatch = 9;
 	
 	public static final String[] trumpfArten = {"Eichle", "Schilte", "Rose", "Schalle", "UnneUfe", "ObeAbe"};
@@ -44,7 +44,6 @@ public class JassTurnier extends ASpiel
 	{
 		for(int i = 0; i < trumpfArten.length; i++)
 			System.out.print(trumpfArten[i] + " - ");
-		System.out.println();
 	}
 
 	public void supplyADeck() 
@@ -71,13 +70,20 @@ public class JassTurnier extends ASpiel
 		this.verteileKarten();
 		for(int i = 0; i < this.getAnzahlSpieler(); i++)
 			spieler[i].sortiereKarten();
-		this.setTrumpf();
+		setTrumpf();
 		this.setKartenWerte();
 		for(int i = 0; i < rundenProMatch; i++)			//Soviele Runden pro match, wie Karten auf der Hand.
 		{
 			this.startRunde(i);	
 		}
 		this.printPunkte();
+	}
+	
+	public void printPunkte()
+	{
+		for(int i = 0; i < getAnzahlSpieler(); i++)
+			System.out.print(spieler[i].getName() + " " + spieler[i].getPunkte() + " -- ");
+		System.out.println();
 	}
 
 	private void setKartenWerte() 				//Hier werden die jeweiligen Trumpfregeln festgelegt.
@@ -201,9 +207,9 @@ public class JassTurnier extends ASpiel
 		
 	}
 	
-	private void setTrumpf() throws IOException 
+	public void setTrumpf() throws IOException 
 	{
-		this.trumpf = spieler[offset].setTrumpf();
+		this.trumpf = spieler[offset].setTrumpf(false);
 	}
 	
 	public static void main(String[] args) throws Exception

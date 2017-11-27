@@ -2,17 +2,23 @@ package jass;
 
 import java.io.IOException;
 
-public abstract class ASpieler 
+public class Spieler 
 {
 	protected int anzahlKarten = 0;
 	protected Karte handKarten[];
 	private int punkte = 0;
 	private String name;	
 	
-	public abstract void sortiereKarten();	//Abstrakt. Je nach SpielForm wird anders geordnet!
-	public abstract int setTrumpf() throws IOException;
-
-	ASpieler(String n, int maxKarten)
+	public void sortiereKarten()
+	{
+		
+	}
+	public int setTrumpf(boolean schiebenAllowed) throws IOException		//Geht das auch ohne diese abstrakte Funktion? nicht für jedes Kartenspiel erwünscht.
+	{
+		return 0;
+	}
+	
+	Spieler(String n, int maxKarten)
 	{
 		name = n;
 		handKarten = new Karte[maxKarten];

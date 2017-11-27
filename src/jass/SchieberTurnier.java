@@ -1,5 +1,7 @@
 package jass;
 
+import java.io.IOException;
+
 public class SchieberTurnier extends JassTurnier
 {
 	private Team[] team;
@@ -18,8 +20,54 @@ public class SchieberTurnier extends JassTurnier
 		}
 	}
 	
-	public static void main(String[] args)
+	public void startTurnier() throws Exception
+	{
+		this.resetTurnier();
+		for(;;)
+		{
+			this.startMatch();
+			
+			if(this.getLeaderTeam().getPunkte() > maxPunkte)
+				break;
+		}
+		System.out.println(this.getLeaderTeam().getName() + " hat das Turnier gewonnen!");
+	}
+	
+	public void printPunkte()
+	{
+		for(int i = 0; i < team.length;i ++)
+		{
+			System.out.println(team[i].getName() + " hat " + team[i].getPunkte() + " Punkte.");
+		}
+	}
+	
+	public Team getLeaderTeam()
+	{
+		int maxPunkte = 0;
+		int GewinnerTeam = 0;
+		for(int i = 0; i < team.length; i++)
+		{
+			if(team[i].getPunkte() > maxPunkte)
+				GewinnerTeam = i;
+		}
+		return team[GewinnerTeam];
+	}
+	
+	@Override
+	public void setTrumpf() throws IOException 
+	{
+		int t = spieler[offset].setTrumpf(true);
+		if(t == -1)
+		{
+			System.out.println(spieler[offset].getName() + " hat Geschoben!");
+			t = spieler[(offset%team.length)+2].setTrumpf(false);
+		}
+		trumpf = t;
+	}
+	
+	public static void main(String[] args) throws Exception
 	{
 		SchieberTurnier test = new SchieberTurnier();
+		test.startTurnier();
 	}
 }

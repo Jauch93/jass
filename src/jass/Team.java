@@ -18,7 +18,7 @@ public class Team
 		System.out.println();
 	}
 	
-	public void calculateTeamPunkte()
+	public void calcTeamPunkte()
 	{
 		teamPunkte = 0;
 		for(int i = 0; i < teamMitglieder.length; i++)
@@ -29,6 +29,7 @@ public class Team
 	
 	public int getPunkte()
 	{
+		calcTeamPunkte();
 		return teamPunkte;
 	}
 	
