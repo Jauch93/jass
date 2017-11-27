@@ -9,9 +9,10 @@ public class JassSpieler extends Spieler
 		super(n,maxKarten);
 	}
 	
-	public int setTrumpf(boolean schiebenAllowed) throws IOException {
+	public int setTrumpf(boolean schiebenAllowed, String[] trumpfArten) throws IOException {
 		System.out.println(this.getName() + " wähle einen Trumpf: ");
-		JassTurnier.printTrumpfArten();
+		for(int i = 0; i < trumpfArten.length; i++)
+			System.out.print(trumpfArten[i] + " - ");
 		if(schiebenAllowed)
 			System.out.print("Schieben");
 		System.out.println();
@@ -24,7 +25,6 @@ public class JassSpieler extends Spieler
 			java.io.BufferedReader cin;
 			cin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
 			trumpfEingabe = cin.readLine();
-			String[] trumpfArten = JassTurnier.getTrumpfArten();
 			for(int i = 0; i < trumpfArten.length; i++)
 			{
 				if(trumpfEingabe.equals(trumpfArten[i]))
@@ -45,7 +45,8 @@ public class JassSpieler extends Spieler
 			else
 			{
 				System.out.println("Diese TrumpfArt gibt es nicht. Versuche es mit:");
-				JassTurnier.printTrumpfArten();
+				for(int i = 0; i < trumpfArten.length; i++)
+					System.out.print(trumpfArten[i] + " - ");
 			}
 		}
 		return trumpf;

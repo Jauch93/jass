@@ -33,6 +33,12 @@ public class SchieberTurnier extends JassTurnier
 		System.out.println(this.getLeaderTeam().getName() + " hat das Turnier gewonnen!");
 	}
 	
+	public void startRunde(int roundNumber) throws Exception 
+	{
+		int rundenPunkte = startAbstractRunde(roundNumber);
+		System.out.println(spieler[offset].getName() + " hat die Runde gewonnen. + " + rundenPunkte +  " Punkte.");		
+	}
+	
 	public void printPunkte()
 	{
 		for(int i = 0; i < team.length;i ++)
@@ -56,11 +62,11 @@ public class SchieberTurnier extends JassTurnier
 	@Override
 	public void setTrumpf() throws IOException 
 	{
-		int t = ((JassSpieler)spieler[offset]).setTrumpf(true);
+		int t = ((JassSpieler)spieler[offset]).setTrumpf(true, this.getTrumpfArten());
 		if(t == -1)
 		{
 			System.out.println(spieler[offset].getName() + " hat Geschoben!");
-			t = ((JassSpieler)spieler[(offset%team.length)+2]).setTrumpf(false);
+			t = ((JassSpieler)spieler[(offset%team.length)+2]).setTrumpf(false, this.getTrumpfArten());
 		}
 		trumpf = t;
 	}
