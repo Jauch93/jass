@@ -39,6 +39,8 @@ public class SchieberTurnier extends AJass
 		Team winnerTeam = team[((TeamSpieler)spieler[offset]).getTeamNr()];
 		System.out.println(winnerTeam.getName() + " hat die Runde gewonnen.  + " + rundenPunkte + " Punkte.");
 		winnerTeam.addPunkte(rundenPunkte);
+		System.out.println("---------------------------------------------");
+		System.out.println();
 	}
 
 	public void setTrumpf() throws IOException 
@@ -47,7 +49,7 @@ public class SchieberTurnier extends AJass
 		if(t == -1)
 		{
 			System.out.println(spieler[offset].getName() + " hat Geschoben!");
-			t = ((JassSpieler)spieler[(offset%team.length)+2]).setTrumpf(false, this.getTrumpfArten());
+			t = ((TeamSpieler)spieler[offset]).getPartner(team[offset%2]).setTrumpf(false, this.getTrumpfArten());
 		}
 		trumpf = t;
 	}
@@ -71,6 +73,12 @@ public class SchieberTurnier extends AJass
 			}
 		}
 		return team[winner];		
+	}
+	
+	public void printPunkte()
+	{
+		for(int i = 0; i < team.length; i++)
+			System.out.println(team[i].getName() + ": " + team[i].getPunkte() + " - ");
 	}
 
 }

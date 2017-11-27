@@ -29,12 +29,6 @@ public abstract class AJass extends ASpiel
 		super(anzahlSpieler, handKarten);
 		this.deutschSchweizerKarten = deutschSchweizerKarten;
 		this.rundenProMatch = handKarten;
-		spieler = new JassSpieler[anzahlSpieler];
-		for(int i = 0; i < anzahlSpieler; i++)
-		{
-			String name = ("Spieler " + (i+1));
-			spieler[i] = new JassSpieler(name, handKarten);
-		}
 	}
 	
 	public void supplyADeck() 
@@ -76,7 +70,7 @@ public abstract class AJass extends ASpiel
 	public void printPunkte()
 	{
 		for(int i = 0; i < getAnzahlSpieler(); i++)
-			System.out.print(spieler[i].getName() + " " + spieler[i].getPunkte() + " -- ");
+			System.out.print(spieler[i].getName() + ": " + spieler[i].getPunkte() + " - ");
 		System.out.println();
 	}
 	

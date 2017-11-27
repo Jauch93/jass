@@ -14,9 +14,11 @@ public class TeamSpieler extends JassSpieler
 		return teamNr;
 	}
 	
-	public TeamSpieler getPartner()
+	public TeamSpieler getPartner(Team team)
 	{
-		return null;
-		//@TODO Implement!
+		if((team.getMitglieder())[0].getName().equals(this.getName()))
+			return (team.getMitglieder())[1];
+		else 
+			return (team.getMitglieder())[0];
 	}
 }

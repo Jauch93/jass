@@ -15,7 +15,7 @@ public abstract class ASpiel
 	
 	ASpiel(int anzahlSpieler, int handKarten)
 	{
-		//spieler = new Spieler[anzahlSpieler];
+		spieler = new Spieler[anzahlSpieler];
 	}
 	
 	public abstract void printPunkte();
