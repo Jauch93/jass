@@ -4,28 +4,40 @@ import java.io.IOException;
 
 public class JassTurnier extends ASpiel
 {
-	private String trumpf;
+	private int trumpf;
 	private int maxPunkte = 2000;
 	private int offset = 0; //Gibt an, welcher Spieler als nächstes beginnen muss.
 	private int rundenProMatch = 9;
 	
 	public static final String[] trumpfArten = {"Eichle", "Schilte", "Rose", "Schalle", "UnneUfe", "ObeAbe"};
 	
+	JassTurnier(int anzahlSpieler, int handKarten)
+	{
+		super();
+		spieler = new JassSpieler[anzahlSpieler];
+		for(int i = 0; i < anzahlSpieler; i++)
+		{
+			String name = ("Spieler " + i);							//SpielerName hier anwählen, mit cin noch ergänzen!
+			spieler[i] = new JassSpieler(name, handKarten);
+		}
+	}
+	
 	JassTurnier()
 	{
-		super(4,9);
+		super();
+		int anzahlSpieler = 4;
+		int handKarten = 9;
+		spieler = new JassSpieler[anzahlSpieler];
+		for(int i = 0; i < anzahlSpieler; i++)
+		{
+			String name = ("Spieler " + i);							//SpielerName hier anwählen, mit cin noch ergänzen!
+			spieler[i] = new JassSpieler(name, handKarten);
+		}
 	}
 	
 	public static String[] getTrumpfArten()
 	{
 		return trumpfArten;
-	}
-	
-	JassTurnier(int anzahlSpieler, int handKarten, int maxP)
-	{
-		super(anzahlSpieler, handKarten);
-		maxPunkte = maxP;
-		rundenProMatch = handKarten;
 	}
 
 	public void supplyADeck() 
@@ -65,16 +77,16 @@ public class JassTurnier extends ASpiel
 	{
 		switch(trumpf)
 		{
-			case "Schalle":
-			case "Schilte":
-			case "Rose":
-			case "Eichle":
+			case 0:
+			case 1:
+			case 2:
+			case 3:
 			for(int i = 0; i < this.getAnzahlSpieler(); i++)
 			{
 				Karte[] karten = spieler[i].getKarten();
 				for(int k = 0; k < karten.length; k++)
 				{
-					if(karten[k].getFarbe().equals(trumpf))
+					if(karten[k].getFarbe().equals(trumpfArten[trumpf]))
 					{					
 						if(karten[k].getName().equals("9"))			//handlet es sich um das Nell?
 						{
@@ -93,7 +105,7 @@ public class JassTurnier extends ASpiel
 				}
 			}
 			break;
-			case "UnneUfe":
+			case 4:			//UnneUfe
 				for(int i = 0; i < this.getAnzahlSpieler(); i++)
 				{
 					Karte[] karten = spieler[i].getKarten();
@@ -102,7 +114,7 @@ public class JassTurnier extends ASpiel
 						karten[k].setWertigkeit(10-karten[k].getWertigkeit());		//Invertierung der Werte
 					}
 				}
-			case "ObeAbe":
+			case 5:			//ObeAbe
 				for(int i = 0; i < this.getAnzahlSpieler(); i++)
 				{
 					Karte[] karten = spieler[i].getKarten();
@@ -136,7 +148,7 @@ public class JassTurnier extends ASpiel
 				if(i > offset)	//If - Nicht der erste Spieler dieser Runde
 				{
 					if(table[k].getFarbe().compareTo(table[offset].getFarbe())!=0 		//Farben nicht gleich
-							&& (table[k].getFarbe().compareTo(trumpf)!=0))	//UND kein Trumpf
+							&& (table[k].getFarbe().compareTo(trumpfArten[trumpf])!=0))	//UND kein Trumpf
 					{
 						Karte[] comp = spieler[k].getKarten();
 						for(int c = 0; c < comp.length; c++)
@@ -163,7 +175,7 @@ public class JassTurnier extends ASpiel
 			{
 				if(table[k].getWertigkeit() > maxWert)
 				{
-					if(table[offset].getFarbe().equals(table[k].getFarbe()) || table[k].getFarbe().equals(trumpf))
+					if(table[offset].getFarbe().equals(table[k].getFarbe()) || table[k].getFarbe().equals(trumpfArten[trumpf]))
 					{
 						rundenGewinner = k;
 						maxWert = table[k].getWertigkeit();

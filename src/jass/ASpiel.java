@@ -3,23 +3,16 @@ package jass;
 public abstract class ASpiel 
 {
 	protected Deck deck;
-	protected Spieler spieler[];
+	protected ASpieler spieler[];
 	
 	public abstract void supplyADeck();						//Abstrakt, denn je nach SpielArt wird ein anderes Deck benötigt.
 	public abstract void startTurnier() throws Exception;
 	public abstract void startMatch() throws Exception;
 	public abstract void startRunde(int roundNumber) throws Exception;	
 	
-	
-	
-	ASpiel(int anzahlSpieler, int handKarten)
+	ASpiel()
 	{
-		spieler = new Spieler[anzahlSpieler];
-		for(int i = 0; i < anzahlSpieler; i++)
-		{
-			String name = ("Spieler " + i);							//SpielerName hier anwählen, mit cin noch ergänzen!
-			spieler[i] = new Spieler(name, handKarten);
-		}
+		
 	}
 	
 	public void printPunkte()
@@ -58,7 +51,7 @@ public abstract class ASpiel
 		}
 	}
 	
-	public Spieler getLeader()							//*Gibt den Spieler mit den meisten Punkte zurück.
+	public ASpieler getLeader()							//*Gibt den Spieler mit den meisten Punkte zurück.
 	{
 		int punkte = 0;
 		int winner = 0;
