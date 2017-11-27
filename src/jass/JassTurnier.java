@@ -9,11 +9,16 @@ public class JassTurnier extends ASpiel
 	private int offset = 0; //Gibt an, welcher Spieler als nächstes beginnen muss.
 	private int rundenProMatch = 9;
 	
-	public static String[] trumpfArten = {"Eichle", "Schilte", "Rose", "Schalle", "UnneUfe", "ObeAbe"};
+	public static final String[] trumpfArten = {"Eichle", "Schilte", "Rose", "Schalle", "UnneUfe", "ObeAbe"};
 	
 	JassTurnier()
 	{
 		super(4,9);
+	}
+	
+	public static String[] getTrumpfArten()
+	{
+		return trumpfArten;
 	}
 	
 	JassTurnier(int anzahlSpieler, int handKarten, int maxP)
@@ -123,7 +128,7 @@ public class JassTurnier extends ASpiel
 		for(int i = offset; i < (offset + this.getAnzahlSpieler()); i++)
 		{
 			int k = i % this.getAnzahlSpieler();
-			for(;;)
+			for(;;)		//In diesem EndlessLoop steck die Mechanik um nicht-Farben abzufangen.
 			{
 				boolean holdColorError = false;
 				table[k] = spieler[k].playCard();
@@ -131,13 +136,12 @@ public class JassTurnier extends ASpiel
 				if(i > offset)	//If - Nicht der erste Spieler dieser Runde
 				{
 					if(table[k].getFarbe().compareTo(table[offset].getFarbe())!=0 		//Farben nicht gleich
-							&& (table[k].getName().compareTo("Buur") !=0)				//UND nicht der Buur
 							&& (table[k].getFarbe().compareTo(trumpf)!=0))	//UND kein Trumpf
 					{
 						Karte[] comp = spieler[k].getKarten();
 						for(int c = 0; c < comp.length; c++)
 						{
-							if(table[offset].getFarbe().equals(comp[c].getFarbe()))
+							if(table[offset].getFarbe().equals(comp[c].getFarbe())&&(table[k].getName().compareTo("Buur") !=0))
 								holdColorError = true;
 						}
 					}
@@ -146,9 +150,10 @@ public class JassTurnier extends ASpiel
 				{
 					System.out.println("Fehler. Die Farbe auf dem Tisch muss gehalten Werden!");
 					spieler[k].takeKarte(table[k]);
+					spieler[k].sortiereKarten();
 				}
 				else
-					break;
+					break;		//Wurde die Farbe gehalten, oder ist das nichtHalten legitim, erfolgt hier der break.
 			}
 			
 			rundenPunkte += table[k].getPunkte();
@@ -179,7 +184,6 @@ public class JassTurnier extends ASpiel
 	
 	private void setTrumpf() throws IOException 
 	{
-		System.out.println("OFFSET = " + offset);
 		this.trumpf = spieler[offset].setTrumpf();
 	}
 	

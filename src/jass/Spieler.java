@@ -150,9 +150,32 @@ public class Spieler
 	public String setTrumpf() throws IOException {
 		System.out.println(this.getName() + " wähle einen Trumpf: [Eichle, Schilte, Rose, Schalle, UnneUfe, ObeAbe]");
 		this.printCards();
-		java.io.BufferedReader cin;
-		cin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
-		String trumpf = cin.readLine();
+		String trumpf = null;
+		for(;;)
+		{
+			boolean validTrumpf = false;
+			java.io.BufferedReader cin;
+			cin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
+			trumpf = cin.readLine();
+			String[] trumpfArten = JassTurnier.getTrumpfArten();
+			for(int i = 0; i < trumpfArten.length; i++)
+			{
+				if(trumpf.equals(trumpfArten[i]))
+				{
+					validTrumpf = true;					
+				}
+				if(validTrumpf)
+					break;
+			}
+			if(validTrumpf)
+				break;
+			else
+			{
+				System.out.println("Diese TrumpfArt gibt es nicht. Versuche es mit:");
+				for(int i = 0; i < trumpfArten.length; i++)
+					System.out.print(trumpfArten[i] + " - ");
+			}
+		}
 		return trumpf;
 	}
 
