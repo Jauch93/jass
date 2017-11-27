@@ -54,15 +54,18 @@ public class JassSpieler extends Spieler
 	public void sortiereKarten()					//Karten auf Hand werden  nach Farbe sortiert, aber noch nicht nach Punkten
 	{
 		Karte[] tmp = new Karte[handKarten.length];
-		int k = 0;													//Nach Farben sortieren
+		int k = 0;	
+		//Nach Farben sortieren
 		for(int i = 0; i < handKarten.length; i++)
 		{
+
 			if(handKarten[i].getFarbe().equals("Eichle"))
 			{
 				tmp[k] = handKarten[i];
 				k++;
 			}
 		}
+
 		for(int i = 0; i < handKarten.length; i++)
 		{
 			if(handKarten[i].getFarbe().equals("Schilte"))
@@ -87,6 +90,7 @@ public class JassSpieler extends Spieler
 				k++;
 			}
 		}
+
 		for(;;)						//Nach Wertigkeit sortieren
 		{
 			boolean everythingSorted = true;

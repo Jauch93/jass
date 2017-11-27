@@ -13,25 +13,24 @@ public class JassTurnier extends ASpiel
 	
 	JassTurnier(int anzahlSpieler, int handKarten)
 	{
-		super();
+		super(anzahlSpieler, handKarten);
 		spieler = new JassSpieler[anzahlSpieler];
 		for(int i = 0; i < anzahlSpieler; i++)
 		{
-			String name = ("Spieler " + (i+1));							//SpielerName hier anwählen, mit cin noch ergänzen!
+			String name = ("Spieler " + (i+1));
 			spieler[i] = new JassSpieler(name, handKarten);
 		}
 	}
 	
 	JassTurnier()
 	{
-		super();
+		super(4, 9);
 		int anzahlSpieler = 4;
-		int handKarten = 9;
 		spieler = new JassSpieler[anzahlSpieler];
 		for(int i = 0; i < anzahlSpieler; i++)
 		{
-			String name = ("Spieler " + (i+1));							//SpielerName hier anwählen, mit cin noch ergänzen!
-			spieler[i] = new JassSpieler(name, handKarten);
+			String name = ("Spieler " + (i+1));
+			spieler[i] = new JassSpieler(name, 9);
 		}
 	}
 	
@@ -66,10 +65,12 @@ public class JassTurnier extends ASpiel
 
 	public void startMatch() throws Exception 
 	{
-		this.supplyADeck();
-		this.verteileKarten();
+		this.supplyADeck();		//Deck Okeee
+
+		this.verteileKarten();	//Hier geschieht ein Fehler. Spieler bekommen ihre Karten nicht!
+
 		for(int i = 0; i < this.getAnzahlSpieler(); i++)
-			spieler[i].sortiereKarten();
+			((JassSpieler)spieler[i]).sortiereKarten();
 		setTrumpf();
 		this.setKartenWerte();
 		for(int i = 0; i < rundenProMatch; i++)			//Soviele Runden pro match, wie Karten auf der Hand.
@@ -175,7 +176,7 @@ public class JassTurnier extends ASpiel
 				{
 					System.out.println("Fehler. Die Farbe auf dem Tisch muss gehalten Werden!");
 					spieler[k].takeKarte(table[k]);
-					spieler[k].sortiereKarten();
+					((JassSpieler)spieler[k]).sortiereKarten();
 				}
 				else
 					break;		//Wurde die Farbe gehalten, oder ist das nichtHalten legitim, erfolgt hier der break.
@@ -209,7 +210,7 @@ public class JassTurnier extends ASpiel
 	
 	public void setTrumpf() throws IOException 
 	{
-		this.trumpf = spieler[offset].setTrumpf(false);
+		this.trumpf = ((JassSpieler)spieler[offset]).setTrumpf(false);
 	}
 	
 	public static void main(String[] args) throws Exception

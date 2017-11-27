@@ -10,9 +10,9 @@ public abstract class ASpiel
 	public abstract void startMatch() throws Exception;
 	public abstract void startRunde(int roundNumber) throws Exception;	
 	
-	ASpiel()
+	ASpiel(int anzahlSpieler, int handKarten)
 	{
-		
+		spieler = new Spieler[anzahlSpieler];
 	}
 	
 	public abstract void printPunkte();
@@ -24,17 +24,17 @@ public abstract class ASpiel
 		{
 			for(int j = 0; j < anzahlKarten; j++)
 			{
-				spieler[i].takeKarte(deck.drawRandom());
+				this.spieler[i].takeKarte(deck.drawRandom());
 			}
 		}
 	}
 	
 	public void verteileKarten(int n)						//*Verteilt allen Spielern n Karten
 	{
-		for(int i = 0; i < spieler.length; i++)
+		for(int i = 0; i < this.getAnzahlSpieler(); i++)
 		{
 			for(int j = 0; j < n; j++)
-				spieler[i].takeKarte(deck.drawRandom());
+				this.spieler[i].takeKarte(deck.drawRandom());
 		}
 	}
 	
@@ -63,6 +63,6 @@ public abstract class ASpiel
 	
 	public int getAnzahlSpieler()
 	{
-		return spieler.length;
+		return this.spieler.length;
 	}
 }

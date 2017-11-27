@@ -56,11 +56,11 @@ public class SchieberTurnier extends JassTurnier
 	@Override
 	public void setTrumpf() throws IOException 
 	{
-		int t = spieler[offset].setTrumpf(true);
+		int t = ((JassSpieler)spieler[offset]).setTrumpf(true);
 		if(t == -1)
 		{
 			System.out.println(spieler[offset].getName() + " hat Geschoben!");
-			t = spieler[(offset%team.length)+2].setTrumpf(false);
+			t = ((JassSpieler)spieler[(offset%team.length)+2]).setTrumpf(false);
 		}
 		trumpf = t;
 	}

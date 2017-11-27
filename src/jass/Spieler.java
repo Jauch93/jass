@@ -1,7 +1,5 @@
 package jass;
 
-import java.io.IOException;
-
 public class Spieler 
 {
 	protected int anzahlKarten = 0;
@@ -9,15 +7,8 @@ public class Spieler
 	private int punkte = 0;
 	private String name;	
 	
-	public void sortiereKarten()
-	{
-		
-	}
-	public int setTrumpf(boolean schiebenAllowed) throws IOException		//Geht das auch ohne diese abstrakte Funktion? nicht für jedes Kartenspiel erwünscht.
-	{
-		return 0;
-	}
-	
+
+
 	Spieler(String n, int maxKarten)
 	{
 		name = n;
