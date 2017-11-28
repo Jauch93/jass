@@ -48,7 +48,7 @@ public abstract class ATable
 	
 	public int getLastCardWert()
 	{
-		return karten[kartenGespielt].getWertigkeit();
+		return karten[kartenGespielt-1].getWertigkeit();
 	}
 	
 	public Karte[] getKarten()

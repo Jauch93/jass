@@ -99,7 +99,7 @@ public abstract class AJass extends ASpiel
 	
 	public int startAbstractRunde(int roundNumber) throws Exception
 	{
-		JassTable table = new JassTable(this.getAnzahlSpieler(), deck);
+		JassTable table = new JassTable(this.getAnzahlSpieler(), deck, trumpfArten[trumpf]);
 
 		for(int i = offset; i < (offset + this.getAnzahlSpieler()); i++)
 		{
@@ -107,9 +107,15 @@ public abstract class AJass extends ASpiel
 			for(;;)
 			{
 				table.addKarte(spieler[k].playCard());
-				if(table.checkForColorError(trumpfArten[trumpf], spieler[k].getKarten()))
+				if(table.checkForColorError(spieler[k].getKarten()))
 				{
 					ASpiel.printString("Fehler. Die Farbe auf dem Tisch muss gehalten Werden!");
+					spieler[k].addKarte(table.returnLastCard());
+					((JassSpieler)spieler[k]).sortiereKarten(deck.getFarben());
+				}
+				else if(table.checkForUnderTrumpfe(spieler[k].getKarten()))
+				{
+					ASpiel.printString("Fehler. UnderTrumpfen ist nicht erlaubt!");
 					spieler[k].addKarte(table.returnLastCard());
 					((JassSpieler)spieler[k]).sortiereKarten(deck.getFarben());
 				}
