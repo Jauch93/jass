@@ -10,13 +10,15 @@ public class JassSpieler extends Spieler
 	}
 	
 	public int setTrumpf(boolean schiebenAllowed, String[] trumpfArten) throws IOException {
-		System.out.println(this.getName() + " wähle einen Trumpf: ");
+		ASpiel.printString("");
+		ASpiel.printString(this.getName() + " wähle einen Trumpf: ");
 		for(int i = 0; i < trumpfArten.length; i++)
-			System.out.print(trumpfArten[i] + " - ");
+			ASpiel.printStringOnLine(trumpfArten[i] + " - ");
+		ASpiel.printString("");
 		if(schiebenAllowed)
-			System.out.print("Schieben");
-		System.out.println();
-		this.printCards();
+			ASpiel.printString("Schieben");
+		ASpiel.printString("");
+		ASpiel.printKarten(this.getKarten());
 		String trumpfEingabe = null;
 		int trumpf = 0;
 		for(;;)
@@ -44,9 +46,9 @@ public class JassSpieler extends Spieler
 				break;
 			else
 			{
-				System.out.println("Diese TrumpfArt gibt es nicht. Versuche es mit:");
+				ASpiel.printString("Diese TrumpfArt gibt es nicht. Versuche es mit:");
 				for(int i = 0; i < trumpfArten.length; i++)
-					System.out.print(trumpfArten[i] + " - ");
+					ASpiel.printString(trumpfArten[i] + " - ");
 			}
 		}
 		return trumpf;

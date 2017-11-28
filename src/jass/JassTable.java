@@ -9,18 +9,18 @@ public class JassTable extends ATable
 	
 	public String getTableColor()
 	{
-		return gespielteKarte[0].getFarbe();
+		return karten[0].getFarbe();
 	}
 
-	public int getTableWinner() 
+	public int getTableWinner() //Noch verschiedene Farben unterscheiden und Trumpf ausklammern!
 	{
 		int maxWert = 0;
 		int winner = 0;
-		for(int i = 0; i < cardsPlayed; i++)
+		for(int i = 0; i < kartenGespielt; i++)
 		{
-			if(gespielteKarte[i].getWertigkeit() > maxWert)
+			if(karten[i].getWertigkeit() > maxWert)
 			{
-				maxWert = gespielteKarte[i].getWertigkeit();
+				maxWert = karten[i].getWertigkeit();
 				winner = i;
 			}
 		}
@@ -30,15 +30,20 @@ public class JassTable extends ATable
 	public boolean checkForColorError(String trumpf, Karte[] comp)
 	{
 		boolean holdColorError = false;
-		if(cardsPlayed > 0)	//If - Nicht der erste Spieler dieser Runde
+		if(kartenGespielt > 0)	//If - Nicht der erste Spieler dieser Runde
 		{
-			if(this.getLastCardColor().compareTo(this.getTableColor())!=0 		//Farben nicht gleich
-					&& (this.getLastCardColor().compareTo(trumpf)!=0))			//UND kein Trumpf
+			if(!this.getLastCardColor().equals(this.getTableColor())) 		//Farben nicht gleich
 			{
-				for(int c = 0; c < comp.length; c++)			//Vergleiche TischFarbe mit Farben auf der Hand
+				if(!this.getLastCardColor().equals(trumpf))				//UND kein Trumpf
 				{
-					if(this.getTableColor().equals(comp[c].getFarbe())&&(this.getLastCardName().compareTo("Buur") !=0))
-						holdColorError = true;
+					for(int c = 0; c < comp.length; c++)				//Vergleiche TischFarbe mit allen Farben auf der Hand
+					{
+						if(this.getTableColor().equals(comp[c].getFarbe())) //hat der Spieler die geforderte Farbe?
+						{
+							if(comp[c].getName().compareTo("Buur") != 0)	//Buur muss nicht gelegt werden!	
+								holdColorError = true;
+						}
+					}
 				}
 			}
 		}

@@ -24,8 +24,26 @@ public abstract class ASpiel
 	{
 		for(int i = 0; i < karten.length; i++)
 		{
-			System.out.println(i + " - " + karten[i].getFarbe() + karten[i].getName());
+			System.out.println(karten[i].getFarbe() + " " + karten[i].getName());
 		}
+	}
+	
+	public static void printKartenNumbered(Karte[] karten)
+	{
+		for(int i = 0; i < karten.length; i++)
+		{
+			System.out.println(i + " - " + karten[i].getFarbe() + " " + karten[i].getName());
+		}
+	}
+	
+	public static void printString(String str)
+	{
+		System.out.println(str);
+	}
+	
+	public static void printStringOnLine(String str)
+	{
+		System.out.print(str);
 	}
 	
 	public void verteileKarten()							//*Verteilt Alle Karten unter den Spielern
@@ -35,7 +53,7 @@ public abstract class ASpiel
 		{
 			for(int j = 0; j < anzahlKarten; j++)
 			{
-				this.spieler[i].takeKarte(deck.drawRandom());
+				this.spieler[i].addKarte(deck.drawRandom());
 			}
 		}
 	}
@@ -45,7 +63,7 @@ public abstract class ASpiel
 		for(int i = 0; i < this.getAnzahlSpieler(); i++)
 		{
 			for(int j = 0; j < n; j++)
-				this.spieler[i].takeKarte(deck.drawRandom());
+				this.spieler[i].addKarte(deck.drawRandom());
 		}
 	}
 	

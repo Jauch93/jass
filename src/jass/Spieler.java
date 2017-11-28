@@ -13,7 +13,7 @@ public class Spieler
 	{
 		name = n;
 		handKarten = new Karte[maxKarten];
-		System.out.println(name + " has been Created");
+		ASpiel.printString(name + " has been Created");
 	}
 	
 	public String getName() 
@@ -36,7 +36,7 @@ public class Spieler
 		return punkte;
 	}
 	
-	public void takeKarte(Karte k)
+	public void addKarte(Karte k)
 	{
 			handKarten[anzahlKarten] = k;
 			anzahlKarten++;
@@ -44,19 +44,17 @@ public class Spieler
 	
 	public Karte[] getKarten()
 	{
-		return handKarten;
-	}
-	
-	public void printCards()
-	{
+		Karte[] ret = new Karte[anzahlKarten];
 		for(int i = 0; i < anzahlKarten; i++)
-			System.out.println(i + " - " + handKarten[i].toString());
+			ret[i] = handKarten[i];
+		return ret;
 	}
 
 	public Karte playCard() throws Exception
 	{
-		this.printCards();
-		System.out.print(name + ", Wähle eine Karte: ");
+		ASpiel.printKartenNumbered(this.getKarten());
+
+		ASpiel.printString(name + ", Wähle eine Karte: ");
 		Karte ret = null;
 		int k = 0;
 		for(;;)
@@ -66,22 +64,23 @@ public class Spieler
 				java.io.BufferedReader cin;
 				cin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
 				k = Integer.parseInt(cin.readLine());
-				if(k >= anzahlKarten)
+				if(k >= anzahlKarten || k < 0)
 					throw new IndexOutOfBoundsException();
-				//if()
 				break;
 				
 			}
 			catch(IndexOutOfBoundsException e)
 			{
-				System.out.println("Ungültige Eingabe");
+				ASpiel.printString("Ungültige Eingabe");
+			}
+			catch(NumberFormatException e)
+			{
+				ASpiel.printString("Ungültige Eingabe");
 			}
 		}
 			ret = handKarten[k];
 			for(int i = k; i < anzahlKarten-1; i++)
-				handKarten[i] = handKarten[i+1];
-
-			
+				handKarten[i] = handKarten[i+1];			
 		anzahlKarten--;
 		return ret;
 	}

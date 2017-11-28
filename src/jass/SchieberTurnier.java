@@ -25,7 +25,7 @@ public class SchieberTurnier extends AJass
 	public void startTurnier() throws Exception 
 	{
 		startAbstractTurnier();
-		System.out.println(this.getLeaderTeam().getName() + " hat das Turnier gewonnen!");
+		ASpiel.printString(this.getLeaderTeam().getName() + " hat das Turnier gewonnen!");
 	}
 
 	public void startMatch() throws Exception 
@@ -37,10 +37,10 @@ public class SchieberTurnier extends AJass
 	{
 		int rundenPunkte = startAbstractRunde(roundNumber);
 		Team winnerTeam = team[((TeamSpieler)spieler[offset]).getTeamNr()];
-		System.out.println(winnerTeam.getName() + " hat die Runde gewonnen.  + " + rundenPunkte + " Punkte.");
+		ASpiel.printString(winnerTeam.getName() + " hat die Runde gewonnen.  + " + rundenPunkte + " Punkte.");
 		winnerTeam.addPunkte(rundenPunkte);
-		System.out.println("---------------------------------------------");
-		System.out.println();
+		ASpiel.printString("---------------------------------------------");
+		ASpiel.printString("");
 	}
 
 	public void setTrumpf() throws IOException 
@@ -48,18 +48,12 @@ public class SchieberTurnier extends AJass
 		int t = ((JassSpieler)spieler[offset]).setTrumpf(true, this.getTrumpfArten());
 		if(t == -1)
 		{
-			System.out.println(spieler[offset].getName() + " hat Geschoben!");
+			ASpiel.printString(spieler[offset].getName() + " hat Geschoben!");
 			t = ((TeamSpieler)spieler[offset]).getPartner(team[offset%2]).setTrumpf(false, this.getTrumpfArten());
 		}
 		trumpf = t;
 	}
 	
-	public static void main(String[] args) throws Exception
-	{
-		SchieberTurnier test = new SchieberTurnier();
-		test.startTurnier();
-	}
-
 	public Team getLeaderTeam()
 	{
 		int punkte = 0;
@@ -78,7 +72,14 @@ public class SchieberTurnier extends AJass
 	public void printPunkte()
 	{
 		for(int i = 0; i < team.length; i++)
-			System.out.println(team[i].getName() + ": " + team[i].getPunkte() + " - ");
+			ASpiel.printString(team[i].getName() + ": " + team[i].getPunkte() + " - ");
+	}
+
+	
+	public static void main(String[] args) throws Exception
+	{
+		SchieberTurnier test = new SchieberTurnier();
+		test.startTurnier();
 	}
 
 }

@@ -2,8 +2,8 @@ package jass;
 
 public abstract class ATable 
 {
-	protected Karte[] gespielteKarte;
-	protected int cardsPlayed = 0;
+	protected Karte[] karten;
+	protected int kartenGespielt = 0;
 	protected Deck deck;
 	protected int punkte = 0;
 	
@@ -11,7 +11,7 @@ public abstract class ATable
 	
 	ATable(int n, Deck deck)
 	{
-		gespielteKarte = new Karte[n];
+		karten = new Karte[n];
 		this.deck = deck;
 	}
 	
@@ -22,42 +22,42 @@ public abstract class ATable
 	
 	public void addKarte(Karte k)
 	{
-		gespielteKarte[cardsPlayed] = k;
+		karten[kartenGespielt] = k;
 		punkte = punkte + k.getPunkte();
-		cardsPlayed++;
+		kartenGespielt++;
 	}
 	
-	public Karte getLastCardBack()
+	public Karte returnLastCard()
 	{
-		Karte ret = gespielteKarte[cardsPlayed-1];
+		Karte ret = karten[kartenGespielt-1];
 		punkte = punkte - ret.getPunkte();
-		cardsPlayed--;
+		kartenGespielt--;
 		return ret;
 	}
 
-	public void cleanTable()
+	public void clearTable()
 	{
-		for(int i = 0; i < cardsPlayed; i++)
-			deck.addKarte(gespielteKarte[i]);
+		for(int i = 0; i < kartenGespielt; i++)
+			deck.addKarte(karten[i]);
 	}
 	
 	public String getLastCardName()
 	{
-		return gespielteKarte[cardsPlayed-1].getName();
+		return karten[kartenGespielt-1].getName();
 	}
 	
 	public int getLastCardWert()
 	{
-		return gespielteKarte[cardsPlayed].getWertigkeit();
+		return karten[kartenGespielt].getWertigkeit();
 	}
 	
 	public Karte[] getKarten()
 	{
-		return gespielteKarte;
+		return karten;
 	}
 	
 	public String getLastCardColor()
 	{
-		return gespielteKarte[cardsPlayed-1].getFarbe();
+		return karten[kartenGespielt-1].getFarbe();
 	}
 }

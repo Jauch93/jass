@@ -28,7 +28,8 @@ public abstract class AJass extends ASpiel
 	{
 		super(anzahlSpieler, handKarten);
 		this.deutschSchweizerKarten = deutschSchweizerKarten;
-		this.rundenProMatch = handKarten;	
+		this.rundenProMatch = handKarten;
+		this.supplyADeck();
 	}
 	
 	public void supplyADeck() 
@@ -62,7 +63,6 @@ public abstract class AJass extends ASpiel
 	
 	public void startAbstractMatch() throws Exception 
 	{
-		this.supplyADeck();
 		this.verteileKarten();
 
 		for(int i = 0; i < this.getAnzahlSpieler(); i++)
@@ -109,15 +109,15 @@ public abstract class AJass extends ASpiel
 				table.addKarte(spieler[k].playCard());
 				if(table.checkForColorError(trumpfArten[trumpf], spieler[k].getKarten()))
 				{
-					System.out.println("Fehler. Die Farbe auf dem Tisch muss gehalten Werden!");
-					spieler[k].takeKarte(table.getLastCardBack());
+					ASpiel.printString("Fehler. Die Farbe auf dem Tisch muss gehalten Werden!");
+					spieler[k].addKarte(table.returnLastCard());
 					((JassSpieler)spieler[k]).sortiereKarten(deck.getFarben());
 				}
 				else
 					break;		//Wurde die Farbe gehalten, oder ist das nichtHalten legitim, erfolgt hier der break.
 			}
-			System.out.println(spieler[k].getName() + " hat " + table.getLastCardColor() + " " + table.getLastCardName() + " gespielt.");
-			System.out.println();
+			ASpiel.printString(spieler[k].getName() + " hat " + table.getLastCardColor() + " " + table.getLastCardName() + " gespielt.");
+			ASpiel.printString("");
 			
 		}
 		offset = offset + table.getTableWinner();
@@ -127,7 +127,7 @@ public abstract class AJass extends ASpiel
 		{
 			rundenPunkte += (5 * trumpfWerte[trumpf]);
 		}
-		table.cleanTable();
+		table.clearTable();
 		return rundenPunkte;
 	}
 
@@ -150,13 +150,13 @@ public abstract class AJass extends ASpiel
 					{					
 						if(karten[k].getName().equals("9"))			//handlet es sich um das Nell?
 						{
-							karten[k].setWertigkeit(9);
+							karten[k].setWertigkeit(10);
 							karten[k].setName("Nell");
 							karten[k].setPunkte(14);
 						}
 						if(karten[k].getName().equals("Under"))			//handelt es sich um den Buur?
 						{
-							karten[k].setWertigkeit(10);
+							karten[k].setWertigkeit(11);
 							karten[k].setName("Buur");
 							karten[k].setPunkte(20);
 						}

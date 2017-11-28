@@ -24,7 +24,7 @@ public class JassTurnier extends AJass
 	public void startTurnier() throws Exception 
 	{
 		startAbstractTurnier();
-		System.out.println(this.getLeader().getName() + " hat das Turnier gewonnen!");
+		ASpiel.printString(this.getLeader().getName() + " hat das Turnier gewonnen!");
 	}
 	
 	public void startMatch() throws Exception
@@ -35,10 +35,10 @@ public class JassTurnier extends AJass
 	public void startRunde(int roundNumber) throws Exception 
 	{
 		int rundenPunkte = startAbstractRunde(roundNumber);
-		System.out.println(spieler[offset].getName() + " hat die Runde gewonnen. + " + rundenPunkte +  " Punkte.");		
+		ASpiel.printString(spieler[offset].getName() + " hat die Runde gewonnen. + " + rundenPunkte +  " Punkte.");		
 		spieler[offset].addPunkte(rundenPunkte);
-		System.out.println("----------------------------------------------------------");
-		System.out.println();
+		ASpiel.printString("----------------------------------------------------------");
+		ASpiel.printString("");
 	}
 	
 	public void setTrumpf() throws IOException 

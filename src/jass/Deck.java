@@ -72,7 +72,7 @@ public class Deck
 		cardsInDeck++;
 	}
 	
-	public void addDeck(Deck d)			// selbe frage wie oben.
+	public void addDeck(Deck d)
 	{
 		int length = deck.length + d.length();
 		Karte[] tmp = new Karte[length];
