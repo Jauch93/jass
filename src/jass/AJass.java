@@ -172,6 +172,10 @@ public abstract class AJass extends ASpiel
 					for(int k = 0; k < karten.length; k++)
 					{						
 						karten[k].setWertigkeit(10-karten[k].getWertigkeit());		//Invertierung der Werte
+						if(karten[k].getName().equals("Ass"))
+							karten[k].setPunkte(0);
+						if(karten[k].getName().equals("6"))
+							karten[k].setPunkte(11);
 					}
 				}
 			case 5:			//ObeAbe
