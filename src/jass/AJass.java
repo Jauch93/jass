@@ -98,7 +98,7 @@ public abstract class AJass extends ASpiel
 	
 	public int startAbstractRunde(int roundNumber) throws Exception
 	{
-		Karte table[] = new Karte[this.getAnzahlSpieler()];
+		JassTable table = new JassTable(this.getAnzahlSpieler(), deck);
 		int rundenPunkte = 0;
 		int maxWert = 0;
 		int rundenGewinner = 0;
@@ -109,17 +109,17 @@ public abstract class AJass extends ASpiel
 			for(;;)		//In diesem EndlessLoop steck die Mechanik um nicht-Farben abzufangen.
 			{
 				boolean holdColorError = false;
-				table[k] = spieler[k].playCard();
+				table.playKarte(spieler[k].playCard());
 				
 				if(i > offset)	//If - Nicht der erste Spieler dieser Runde
 				{
-					if(table[k].getFarbe().compareTo(table[offset].getFarbe())!=0 		//Farben nicht gleich
-							&& (table[k].getFarbe().compareTo(trumpfArten[trumpf])!=0))	//UND kein Trumpf
+					if(table.getLastColor().compareTo(table.getTableColor())!=0 		//Farben nicht gleich
+							&& (table.getLastColor().compareTo(trumpfArten[trumpf])!=0))	//UND kein Trumpf
 					{
 						Karte[] comp = spieler[k].getKarten();
 						for(int c = 0; c < comp.length; c++)
 						{
-							if(table[offset].getFarbe().equals(comp[c].getFarbe())&&(table[k].getName().compareTo("Buur") !=0))
+							if(table.getLastColor().equals(comp[c].getFarbe())&&(table.getLastCardName().compareTo("Buur") !=0))
 								holdColorError = true;
 						}
 					}
@@ -127,28 +127,28 @@ public abstract class AJass extends ASpiel
 				if(holdColorError)
 				{
 					System.out.println("Fehler. Die Farbe auf dem Tisch muss gehalten Werden!");
-					spieler[k].takeKarte(table[k]);
+					spieler[k].takeKarte(table.getLastCardBack());
 					((JassSpieler)spieler[k]).sortiereKarten(deck.getFarben());
 				}
 				else
 					break;		//Wurde die Farbe gehalten, oder ist das nichtHalten legitim, erfolgt hier der break.
 			}
 			
-			rundenPunkte += table[k].getPunkte();
+			rundenPunkte += table.getPunkte();
 			if(i == offset)
-				maxWert = table[k].getWertigkeit();
+				maxWert = table.getLastCardWert();
 			if(i > offset)
 			{
-				if(table[k].getWertigkeit() > maxWert)
+				if(table.getLastCardWert() > maxWert)
 				{
-					if(table[offset].getFarbe().equals(table[k].getFarbe()) || table[k].getFarbe().equals(trumpfArten[trumpf]))
+					if(table.getTableColor().equals(table.getLastColor()) || table.getLastColor().equals(trumpfArten[trumpf]))
 					{
 						rundenGewinner = k;
-						maxWert = table[k].getWertigkeit();
+						maxWert = table.getLastCardWert();
 					}
 				}
 			}
-			System.out.println(spieler[k].getName() + " hat " + table[k].toString() + " gespielt.");
+			System.out.println(spieler[k].getName() + " hat " + table.getLastColor() + " " + table.getLastCardName() + " gespielt.");
 			System.out.println();
 			
 		}
@@ -156,6 +156,7 @@ public abstract class AJass extends ASpiel
 		{
 			rundenPunkte += (5 * trumpfWerte[trumpf]);
 		}
+		table.cleanTable();
 		offset = rundenGewinner;
 		return rundenPunkte;
 	}
