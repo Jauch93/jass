@@ -7,6 +7,8 @@ public abstract class ATable
 	protected Deck deck;
 	protected int punkte = 0;
 	
+	public abstract int getTableWinner();
+	
 	ATable(int n, Deck deck)
 	{
 		gespielteKarte = new Karte[n];
@@ -18,16 +20,17 @@ public abstract class ATable
 		return punkte;
 	}
 	
-	public void playKarte(Karte k)
+	public void addKarte(Karte k)
 	{
 		gespielteKarte[cardsPlayed] = k;
-		punkte =+ k.getPunkte();
+		punkte = punkte + k.getPunkte();
 		cardsPlayed++;
 	}
 	
 	public Karte getLastCardBack()
 	{
-		Karte ret = gespielteKarte[cardsPlayed];
+		Karte ret = gespielteKarte[cardsPlayed-1];
+		punkte = punkte - ret.getPunkte();
 		cardsPlayed--;
 		return ret;
 	}
@@ -40,11 +43,21 @@ public abstract class ATable
 	
 	public String getLastCardName()
 	{
-		return gespielteKarte[cardsPlayed].getName();
+		return gespielteKarte[cardsPlayed-1].getName();
 	}
 	
 	public int getLastCardWert()
 	{
 		return gespielteKarte[cardsPlayed].getWertigkeit();
+	}
+	
+	public Karte[] getKarten()
+	{
+		return gespielteKarte;
+	}
+	
+	public String getLastCardColor()
+	{
+		return gespielteKarte[cardsPlayed-1].getFarbe();
 	}
 }

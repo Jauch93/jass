@@ -20,6 +20,14 @@ public abstract class ASpiel
 	
 	public abstract void printPunkte();
 	
+	public static void printKarten(Karte[] karten)		//Für KonsolenAusgabe!!!!
+	{
+		for(int i = 0; i < karten.length; i++)
+		{
+			System.out.println(i + " - " + karten[i].getFarbe() + karten[i].getName());
+		}
+	}
+	
 	public void verteileKarten()							//*Verteilt Alle Karten unter den Spielern
 	{
 		int anzahlKarten = deck.length()/this.getAnzahlSpieler();

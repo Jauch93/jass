@@ -37,6 +37,8 @@ public class JassTurnier extends AJass
 		int rundenPunkte = startAbstractRunde(roundNumber);
 		System.out.println(spieler[offset].getName() + " hat die Runde gewonnen. + " + rundenPunkte +  " Punkte.");		
 		spieler[offset].addPunkte(rundenPunkte);
+		System.out.println("----------------------------------------------------------");
+		System.out.println();
 	}
 	
 	public void setTrumpf() throws IOException 
