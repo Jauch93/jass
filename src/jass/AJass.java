@@ -28,15 +28,24 @@ public abstract class AJass extends ASpiel
 	{
 		super(anzahlSpieler, handKarten);
 		this.deutschSchweizerKarten = deutschSchweizerKarten;
-		this.rundenProMatch = handKarten;
+		this.rundenProMatch = handKarten;	
 	}
 	
 	public void supplyADeck() 
 	{
 		if(deutschSchweizerKarten)
-			deck = new Deck();
+		{
+			String[] farben = {"Eichle", "Schilte", "Rose", "Schalle"};		//Deutschweizer set
+			deck = new Deck(farben);
+		}
 		else
-			deck = new Deck(); //Hier französchises Deck initialisieren.
+		{
+			String[] farben = {"Herz", "Ecke", "Schuufle", "Pik"};		//französisches Deck
+			deck = new Deck(farben);
+		}
+		String[] farben = deck.getFarben();
+		for(int i = 0; i < farben.length; i++)
+			this.OverrideTrumpfArten(farben[i], i);
 	}
 	
 	public void startAbstractTurnier() throws Exception 
@@ -57,7 +66,7 @@ public abstract class AJass extends ASpiel
 		this.verteileKarten();
 
 		for(int i = 0; i < this.getAnzahlSpieler(); i++)
-			((JassSpieler)spieler[i]).sortiereKarten();
+			((JassSpieler)spieler[i]).sortiereKarten(deck.getFarben());
 		setTrumpf();
 		this.setKartenWerte();
 		for(int i = 0; i < rundenProMatch; i++)
@@ -78,6 +87,11 @@ public abstract class AJass extends ASpiel
 	public String[] getTrumpfArten()
 	{
 		return trumpfArten;
+	}
+	
+	public void OverrideTrumpfArten(String art, int n)
+	{
+		trumpfArten[n] = art;
 	}
 	
 //--------------------------------------------------------------------------RundenAlgorithmus
@@ -114,7 +128,7 @@ public abstract class AJass extends ASpiel
 				{
 					System.out.println("Fehler. Die Farbe auf dem Tisch muss gehalten Werden!");
 					spieler[k].takeKarte(table[k]);
-					((JassSpieler)spieler[k]).sortiereKarten();
+					((JassSpieler)spieler[k]).sortiereKarten(deck.getFarben());
 				}
 				else
 					break;		//Wurde die Farbe gehalten, oder ist das nichtHalten legitim, erfolgt hier der break.

@@ -25,11 +25,10 @@ public class Deck
 		}
 	}
 	
-	Deck(int punkte[], int wertigkeit[])		//*Erstellt ein Deutschschweizer Jassdeck, wobei punkte und Wertigkeit varriabel sind
+	Deck(String farben[])		//*Erstellt ein JassSet, bei dem die Farben variabel einstellbar sind.
 	{
 		deck = new Karte[36];
-		defaultPunkte = punkte;
-		defaultWertigkeit = wertigkeit;
+		defaultFarben = farben;
 		for(int i = 0; i < defaultFarben.length; i++)
 		{
 			for(int j = 0; j < defaultNamen.length; j++)
@@ -38,7 +37,6 @@ public class Deck
 				deck[cardsInDeck].setPunkte(defaultPunkte[j]);
 				deck[cardsInDeck].setWertigkeit(defaultWertigkeit[i]);
 				cardsInDeck++;
-
 			}
 		}
 	}
@@ -101,6 +99,11 @@ public class Deck
 	public int length()
 	{
 		return cardsInDeck;
+	}
+	
+	public String[] getFarben()
+	{
+		return defaultFarben;
 	}
 	
 	public Karte draw() throws IndexOutOfBoundsException				/**Draws a Card from the top of the Deck */

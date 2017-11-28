@@ -52,7 +52,7 @@ public class JassSpieler extends Spieler
 		return trumpf;
 	}
 	
-	public void sortiereKarten()					//Karten auf Hand werden  nach Farbe sortiert, aber noch nicht nach Punkten
+	public void sortiereKarten(String farben[])					
 	{
 		Karte[] tmp = new Karte[handKarten.length];
 		int k = 0;	
@@ -60,7 +60,7 @@ public class JassSpieler extends Spieler
 		for(int i = 0; i < handKarten.length; i++)
 		{
 
-			if(handKarten[i].getFarbe().equals("Eichle"))
+			if(handKarten[i].getFarbe().equals(farben[0]))
 			{
 				tmp[k] = handKarten[i];
 				k++;
@@ -69,7 +69,7 @@ public class JassSpieler extends Spieler
 
 		for(int i = 0; i < handKarten.length; i++)
 		{
-			if(handKarten[i].getFarbe().equals("Schilte"))
+			if(handKarten[i].getFarbe().equals(farben[1]))
 			{
 				tmp[k] = handKarten[i];
 				k++;
@@ -77,7 +77,7 @@ public class JassSpieler extends Spieler
 		}
 		for(int i = 0; i < handKarten.length; i++)
 		{
-			if(handKarten[i].getFarbe().equals("Rose"))
+			if(handKarten[i].getFarbe().equals(farben[2]))
 			{
 				tmp[k] = handKarten[i];
 				k++;
@@ -85,7 +85,7 @@ public class JassSpieler extends Spieler
 		}
 		for(int i = 0; i < handKarten.length; i++)
 		{
-			if(handKarten[i].getFarbe().equals("Schalle"))
+			if(handKarten[i].getFarbe().equals(farben[3]))
 			{
 				tmp[k] = handKarten[i];
 				k++;

@@ -11,7 +11,7 @@ public class JassTurnier extends AJass
 	
 	JassTurnier()		//*Normales JassSpiel mit DeutschweizerKarten
 	{
-		super(4, 9, true, 2000);
+		super(4, 9, false, 2000);
 		int handKarten = 9;
 		int anzahlSpieler = 4;
 		for(int i = 0; i < anzahlSpieler; i++)
